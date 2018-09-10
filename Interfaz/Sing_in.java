@@ -41,9 +41,9 @@ public class Sing_in extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/reds/Descargas/Title1.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaz/Title1.png"))); // NOI18N
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("/home/reds/Descargas/Puntitos.gif")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Interfaz/Puntitos.gif"))); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(214, 134, 54));
 

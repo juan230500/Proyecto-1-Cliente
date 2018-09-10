@@ -86,14 +86,14 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/reds/Descargas/Title1.png"/>
+              <Image iconType="3" name="/Interfaz/Title1.png"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="/home/reds/Descargas/Puntitos.gif"/>
+              <Image iconType="3" name="/Interfaz/Puntitos.gif"/>
             </Property>
           </Properties>
         </Component>
