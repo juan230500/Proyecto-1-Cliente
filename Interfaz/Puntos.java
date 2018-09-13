@@ -30,14 +30,18 @@ public class Puntos extends javax.swing.JFrame {
         
         for (int x =200; x <800; x=x+100) {
             for (int y =100; y <700; y=y+100){
-                g.drawLine(x, y, 800, y);
+                //g.drawLine(x, y, 800, y);
                 //g.drawLine(x+25, y+25, 800, y+25);
                 g.drawOval(x, y, 50, 50);
+                g.setColor(Color.RED);
+                g.fillOval(x+20,y+20,10,10);
+                
                 int Posicion[]={x,y};
                 Posiciones[pos]=Posicion;
                 pos=pos+1;   
             }  
         }
+
     
 }
     public  int[][] give_Lista(){
@@ -81,7 +85,7 @@ public class Puntos extends javax.swing.JFrame {
     public  boolean look_position_y(int mousey ){
         boolean buscador=false;
         for (int y =0; y <=32; y=y+1) {
-            if (Posiciones[y][1]-25<mousey && Posiciones[y][1]+25>mousey){
+            if (Posiciones[y][1]<mousey && Posiciones[y][1]+25+25>mousey){
                 buscador=true;
                 break;
             }
@@ -92,6 +96,28 @@ public class Puntos extends javax.swing.JFrame {
         //System.out.println( Posiciones);
 
     }
+    public  int give_y(int mousey ){
+        for (int y =0; y <=32; y=y+1) {
+            if (-5<=((Posiciones[y][1]+25)-mousey)&&((Posiciones[y][1]+25)-mousey)<=5){
+                return Posiciones[y][1];
+                
+            }
+           
+        }
+        return 0;
+    }
+    public  int give_x(int mousex ){
+        for (int x =0; x <=32; x=x+1) {
+            if (-5<=((Posiciones[x][0]+25)-mousex)&&((Posiciones[x][0]+25)-mousex)<=5){
+                return Posiciones[x][0];  
+                
+            }
+            
+        }
+        return 0;
+    }
+    
+    
     
 }
     

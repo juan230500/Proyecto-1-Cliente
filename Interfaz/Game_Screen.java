@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaz;
+package Interfaz;//El paquete a ulizar 
 import java.awt.Graphics;
-
-
 import java.awt.MouseInfo;
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -16,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
-
+//se importan las librerias necesarias para el manejo de la interfaz grafica
 /**
  *
  * @author reds
@@ -26,80 +24,65 @@ public class Game_Screen extends javax.swing.JFrame {
     private int ybegin=0;
     private int yfinal=0;
     private int xfinal=0;
+    
     boolean movimiento=false;
     private Puntos Screen =new Puntos();
     int button_X_Pos;
     int button_Y_Pos;
-    
+    // se crean las variables que se van a utilizar en esta parte grafica 
     
 
     /**
      * Creates new form Game_Screen
      */
   
-    public Game_Screen() {
-        
+    public Game_Screen() {//este es el metodo principal en el cual se manejan los componentes y su logica el cual es llamado en el main
         initComponents();
-
-        
         Graphics Panel1=jPanel1.getGraphics();
-        //Graphics Panel1=jPanel1.getGraphics();
-        
-        //Screen.Hacer_puntos(Panel1);
-        
-
         jPanel1.addMouseListener(new MouseAdapter() {
-   
-          public void mousePressed(MouseEvent e){
-              xbegin=xfinal= e.getX();
+          public void mousePressed(MouseEvent e){//ESte metodo se ejecuta cuando el mouse se presiona en algun lado de la pantalla 
+              xbegin=xfinal= e.getX();//Mediante este procedimiento se  obtiene la poscion del mouse y se guarada en una variable
               ybegin=yfinal=e.getY();
-              if(Screen.look_position(xbegin, ybegin)){
-              System.out.println("si toque punto");
-              
-              }
-              else{
-              System.out.println("no toque punto");
-              }
-              
-              //Graphics Panel1=jPanel1.getGraphics();
-              //Screen.Hacer_puntos(Panel1);
-              //repaint();
               System.out.println("X = "+ e.getX()+" ; Y = "+e.getY());
            }
-          public void mouseReleased(MouseEvent e){
-              xfinal= e.getX();
+          public void mouseReleased(MouseEvent e){//Este metodo se ejecuta cuando el mouse se deja de presionar
+              xfinal= e.getX();//Mediante este  metodo se recolecta la posicion del mouse cuando se deja de presionar para sabe la posicion final
               yfinal=e.getY();
-              Graphics Panel1=jPanel1.getGraphics();
-              if(Screen.look_position(xbegin, ybegin)&& Screen.look_position(xfinal, yfinal) && movimiento){
-                  System.out.println("Hice linea");
-                  
+              Graphics Panel1=jPanel1.getGraphics();//Mediante esto se crea un objeto grafico para poder dibujar en el panel 1
+              if(Screen.look_position(xbegin, ybegin)){//Este condicional lo que valida es que  se este tocando un puno en la matriz de puntos
+                   System.out.println(xbegin);//Im[resion de satoa para observar su comportamiento
+                   System.out.println(ybegin);
+                    System.out.println(xfinal);
+                    System.out.println(yfinal);
+                  //Este condicional valida si el punto cuando se suelta el mouse es un punto de la   matriz y si se movio ya que puede que se solto el mouse pero no se movio ahi es donde funciona la varibale movimiento
+                  if(Screen.look_position(xbegin, ybegin)&& Screen.look_position(xfinal, yfinal) && movimiento){
+                      //ESte condicional lo que verifica cual es  el centro del punto que se toco para que ala hora de dibujar se parta del centro de el punto y no de un punto cualquiera dentro de este 
+                      if(Screen.give_x(xbegin)!=0&& Screen.give_x(xfinal)!=0 && Screen.give_y(ybegin)!=0 && Screen.give_y(yfinal)!=0){
+                          System.out.println("hola perro");
+                          //Esta linea dibuja una linea de el centro de un punto al otro
+                          Panel1.drawLine(Screen.give_x(xbegin)+25, Screen.give_y(ybegin)+25, Screen.give_x(xfinal)+25,Screen.give_y(yfinal)+25);
+                      }
+                      
+                      System.out.println(Screen.give_x(xbegin)+", el x inicial es ese  y el final es "+Screen.give_x(xfinal));
+                      System.out.println(Screen.give_y(ybegin)+", el y inicial es ese  y el final es "+Screen.give_y(yfinal));
+                  }
+              
               }
-              else{
-              System.out.println("no hice linea");
-              }
+            
+             //Se establece la variabble de movimiento falsa ya que cuando se suelta el mouse ya termino de mover este  
               movimiento=false;
-              //Screen.Hacer_puntos(Panel1);
-              //repaint();
-              //System.out.println("X = "+ e.getX()+" ; Y = "+e.getY());
+
+              System.out.println("X = "+ e.getX()+" ; Y = "+e.getY());
            }
          }
         
         );
         jPanel1.addMouseMotionListener(new MouseMotionAdapter(){
-            public void mouseDragged(MouseEvent e){
-              xfinal= e.getX();
-              yfinal=e.getY();
+            public void mouseDragged(MouseEvent e){//ESte metodo  cuando se atrastra el mouse de una posion a otra 
               Graphics Panel1=jPanel1.getGraphics();
-              movimiento=true;
-              //Screen.Hacer_puntos(Panel1);
-              //Panel1.drawLine(xbegin,ybegin,xfinal,yfinal);
-              //System.out.println("X = "+ e.getX()+" ; Y = "+e.getY());
-              //repaint();
+              movimiento=true;//se establece que la varaiable movimiento es verdadera ya que sabemos que este metodo se ejecuta cuando se arastra el mouse
            }
         });
-        
-        //Puntos Screen =new Puntos();
-        
     }
 
     /**
@@ -174,10 +157,10 @@ public class Game_Screen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        // TODO add your handling code here:
+        // ESte metodo se ejecuta cuando la pantalla se abre incialmente y lo ulizamos para crear la malla de puntos cuando se inicia el programa 
         Graphics Panel1=jPanel1.getGraphics();
         Screen.Hacer_puntos(Panel1);
-        //int  Posiciones[][]=Screen.give_Lista();  
+   
     }//GEN-LAST:event_formWindowActivated
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
