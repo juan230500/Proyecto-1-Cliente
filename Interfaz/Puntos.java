@@ -26,7 +26,7 @@ public class Puntos extends javax.swing.JFrame {
     
     int  Posiciones[][]=new int[36][2];
     
-    public  void Hacer_puntos(Graphics g){
+    public  void Hacer_puntos(Graphics g){//ESte metodo genera la matriz de puntos visualmente dibujando puntos en el Panel
         
         for (int x =200; x <800; x=x+100) {
             for (int y =100; y <700; y=y+100){
@@ -36,23 +36,20 @@ public class Puntos extends javax.swing.JFrame {
                 g.setColor(Color.RED);
                 g.fillOval(x+20,y+20,10,10);
                 
-                int Posicion[]={x,y};
-                Posiciones[pos]=Posicion;
+                int Posicion[]={x,y};//ESto genera un array con las posiones x,y del cirulo creado
+                Posiciones[pos]=Posicion;//Guarda el array previo en  uno que contenga todos los de la malla 
                 pos=pos+1;   
             }  
         }
 
     
 }
-    public  int[][] give_Lista(){
+    //public  int[][] give_Lista(){
         //System.out.println( Posiciones);
-        return Posiciones;
-    }
-    public void paint(Graphics g,int x1,int y1,int x2,int y2) {
-        super.paint(g);
-        g.drawLine(x1,y1, x2,y2);
-    }
-    public  boolean look_position(int mousex,int mousey){
+      //  return Posiciones;
+    //}
+
+    public  boolean look_position(int mousex,int mousey){//mediante este metodo ingresamos una posicion x,y y nos dice si concuerda con la de un punto de la malla 
         boolean buscador=false;
         boolean buscador2=false;
         for (int x =0; x <=32; x=x+1) {
@@ -82,21 +79,8 @@ public class Puntos extends javax.swing.JFrame {
         //System.out.println( Posiciones);
 
     }
-    public  boolean look_position_y(int mousey ){
-        boolean buscador=false;
-        for (int y =0; y <=32; y=y+1) {
-            if (Posiciones[y][1]<mousey && Posiciones[y][1]+25+25>mousey){
-                buscador=true;
-                break;
-            }
-           
-        }
-        return buscador;
-        
-        //System.out.println( Posiciones);
-
-    }
-    public  int give_y(int mousey ){
+    
+    public  int give_y(int mousey ){//Mediante este metodo nos devuelve la posicon x del centro  del punto mas cercano  para poder dibujar en un futuro desde este 
         for (int y =0; y <=32; y=y+1) {
             if (-5<=((Posiciones[y][1]+25)-mousey)&&((Posiciones[y][1]+25)-mousey)<=5){
                 return Posiciones[y][1];
@@ -106,7 +90,7 @@ public class Puntos extends javax.swing.JFrame {
         }
         return 0;
     }
-    public  int give_x(int mousex ){
+    public  int give_x(int mousex ){//Mediante este metodo nos devuelve la posicon y del centro del punto mas cercano  para poder dibujar en un futuro desde este 
         for (int x =0; x <=32; x=x+1) {
             if (-5<=((Posiciones[x][0]+25)-mousex)&&((Posiciones[x][0]+25)-mousex)<=5){
                 return Posiciones[x][0];  
