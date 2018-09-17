@@ -1,19 +1,17 @@
 package Cliente;
 import java.io.*;
 import java.net.*;
-import geo.*;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import Interfaz.*;
 public class SocketCliente {
 		Socket ClienteSocket = null;
 		PrintWriter salida = null;
 		BufferedReader entrada = null;
 		int n = 7777;
-	public void start() {
+	public void start() throws IOException {
 		try {
 		ClienteSocket = new Socket("localhost", n);
 		salida = new PrintWriter(ClienteSocket.getOutputStream(),true);
@@ -36,7 +34,7 @@ public class SocketCliente {
 		}
 		
 	}
-	public static String Ansout(Respuesta e)JsonProcessingException {
+	public static String Ansout(Respuesta e) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = null;
 			json = mapper.writeValueAsString(e);
@@ -47,7 +45,7 @@ public class SocketCliente {
 		Respuesta a = mapper.readValue(json, Respuesta.class);
 		return a;
 	}
-	public static String Shipout(Envio e)JsonProcessingException {
+	public static String Shipout(Envio e) throws JsonProcessingException{
 		ObjectMapper mapper = new ObjectMapper();
 		String json = null;
 			json = mapper.writeValueAsString(e);
@@ -55,13 +53,12 @@ public class SocketCliente {
 	}
 	public static Envio Shipin(String json) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		Envio e = mapper.readValue(json, Respuesta.class);
+		Envio e = mapper.readValue(json, Envio.class);
 		return e;
 	}
-	public void close() {
+	public void close() throws IOException {
 		salida.close();
 		entrada.close();
-		entrada1.close();
 		ClienteSocket.close();
 	}
 	
