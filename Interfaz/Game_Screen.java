@@ -33,6 +33,7 @@ public class Game_Screen extends javax.swing.JFrame {
     private String Pointname1;
     private String Pointname2;
     private String Linename;
+    boolean condicion=false;
     
     boolean movimiento=false;
     private Screen Screen =new Screen();
@@ -48,18 +49,24 @@ public class Game_Screen extends javax.swing.JFrame {
     public Game_Screen() {//este es el metodo principal en el cual se manejan los componentes y su logica el cual es llamado en el main
         initComponents();
         Graphics Panel1=jPanel1.getGraphics();
-        //Rellenar_Figura(Panel1,xpoints,ypoints);
+        Screen.Rellenar_Figura(Panel1,xpoints,ypoints,0,255,0);
+        if ( condicion==false){
+            
+            Panel1.setColor(Color.red);
+        Panel1.drawLine(200, 300, 400, 500);
+        }
         jPanel1.addMouseListener(new MouseAdapter() {
           public void mousePressed(MouseEvent e){//ESte metodo se ejecuta cuando el mouse se presiona en algun lado de la pantalla 
               xbegin=xfinal= e.getX();//Mediante este procedimiento se  obtiene la poscion del mouse y se guarada en una variable
               ybegin=yfinal=e.getY();
+              condicion=true;
               System.out.println("X = "+ e.getX()+" ; Y = "+e.getY());
            }
           public void mouseReleased(MouseEvent e){//Este metodo se ejecuta cuando el mouse se deja de presionar
               xfinal= e.getX();//Mediante este  metodo se recolecta la posicion del mouse cuando se deja de presionar para sabe la posicion final
               yfinal=e.getY();
               Graphics Panel1=jPanel1.getGraphics();//Mediante esto se crea un objeto grafico para poder dibujar en el panel 1
-              Screen.Rellenar_Figura(Panel1,xpoints,ypoints,0,255,0);
+              //Screen.Rellenar_Figura(Panel1,xpoints,ypoints,0,255,0);
 //Este condicional lo que valida es que cuando se presiona el mouse incialmete este en un punto y cuando se suelte tambie  sea en un punto de la matriz y mediante la variable  movimiento sabemos que no es le mismo punto ambos
               if(Screen.look_position(xbegin, ybegin)&& Screen.look_position(xfinal, yfinal) && movimiento ){
                     if(Screen.give_x(xbegin)!=0&& Screen.give_x(xfinal)!=0 && Screen.give_y(ybegin)!=0 && Screen.give_y(yfinal)!=0){
@@ -117,6 +124,7 @@ public class Game_Screen extends javax.swing.JFrame {
               movimiento=true;//se establece que la varaiable movimiento es verdadera ya que sabemos que este metodo se ejecuta cuando se arastra el mouse
            }
         });
+        Screen.Rellenar_Figura(Panel1,xpoints,ypoints,0,255,0);
     }
     
 

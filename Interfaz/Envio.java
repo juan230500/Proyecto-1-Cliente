@@ -12,6 +12,7 @@ package Interfaz;
 public class Envio {
     private int xy1;
     private int xy2;
+    private boolean inicio;
     private String User;
     
     
