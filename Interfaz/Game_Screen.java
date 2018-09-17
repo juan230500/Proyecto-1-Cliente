@@ -14,19 +14,28 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
+import java.awt.Polygon;
 //se importan las librerias necesarias para el manejo de la interfaz grafica
 /**
  *
  * @author reds
  */
+
 public class Game_Screen extends javax.swing.JFrame {
     private int xbegin=0;
     private int ybegin=0;
     private int yfinal=0;
     private int xfinal=0;
+    int xpoints[] = {425,425,525};
+    int ypoints[] = {325, 425, 325};
+    private int point_counter=1;
+    private int line_counter=1;
+    private String Pointname1;
+    private String Pointname2;
+    private String Linename;
     
     boolean movimiento=false;
-    private Puntos Screen =new Puntos();
+    private Screen Screen =new Screen();
     int button_X_Pos;
     int button_Y_Pos;
     // se crean las variables que se van a utilizar en esta parte grafica 
@@ -35,10 +44,11 @@ public class Game_Screen extends javax.swing.JFrame {
     /**
      * Creates new form Game_Screen
      */
-  
+   
     public Game_Screen() {//este es el metodo principal en el cual se manejan los componentes y su logica el cual es llamado en el main
         initComponents();
         Graphics Panel1=jPanel1.getGraphics();
+        //Rellenar_Figura(Panel1,xpoints,ypoints);
         jPanel1.addMouseListener(new MouseAdapter() {
           public void mousePressed(MouseEvent e){//ESte metodo se ejecuta cuando el mouse se presiona en algun lado de la pantalla 
               xbegin=xfinal= e.getX();//Mediante este procedimiento se  obtiene la poscion del mouse y se guarada en una variable
@@ -49,22 +59,32 @@ public class Game_Screen extends javax.swing.JFrame {
               xfinal= e.getX();//Mediante este  metodo se recolecta la posicion del mouse cuando se deja de presionar para sabe la posicion final
               yfinal=e.getY();
               Graphics Panel1=jPanel1.getGraphics();//Mediante esto se crea un objeto grafico para poder dibujar en el panel 1
-              //Este condicional lo que valida es que cuando se presiona el mouse incialmete este en un punto y cuando se suelte tambie  sea en un punto de la matriz y mediante la variable  movimiento sabemos que no es le mismo punto ambos
+              Screen.Rellenar_Figura(Panel1,xpoints,ypoints,0,255,0);
+//Este condicional lo que valida es que cuando se presiona el mouse incialmete este en un punto y cuando se suelte tambie  sea en un punto de la matriz y mediante la variable  movimiento sabemos que no es le mismo punto ambos
               if(Screen.look_position(xbegin, ybegin)&& Screen.look_position(xfinal, yfinal) && movimiento ){
                     if(Screen.give_x(xbegin)!=0&& Screen.give_x(xfinal)!=0 && Screen.give_y(ybegin)!=0 && Screen.give_y(yfinal)!=0){
                         int centro1x=Screen.give_x(xbegin);
-                        int centro1y=Screen.give_x(ybegin);
-                        int centro2x=Screen.give_y(xfinal);
+                        int centro1y=Screen.give_y(ybegin);
+                        int centro2x=Screen.give_x(xfinal);
                         int centro2y=Screen.give_y(yfinal); 
                         jLabel4.setText("");
-                        if(centro1x-centro2x==100||centro1x-centro2x==-100||centro1y-centro2y==100||centro1y-centro2y==-100){
+                        if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100)){
                             jLabel4.setText("");
+                           Panel1.setColor(Color.GREEN);
+                           Pointname1 = "Punto" + point_counter;
+                           Pointname2 = "Punto" + point_counter+1;
+                           Linename="Linea"+line_counter;
+                           Punto Pointname1 = new Punto(centro1x,centro1y);
+                           Punto Pointname2 = new Punto(centro2x,centro2y);
+                           Linea Linename=new Linea(Pointname1,Pointname2);
                           //Esta linea dibuja una linea de el centro de un punto al otro
+                          //Punto=new Punto(centro1,centro2);
                           Panel1.drawLine(Screen.give_x(xbegin)+25, Screen.give_y(ybegin)+25, Screen.give_x(xfinal)+25,Screen.give_y(yfinal)+25);
                             
                         }
                         else{
-                            jLabel4.setText("Lo sentimos usted solo puede unir puntos adyacentes ");
+                            jLabel4.setText(Math.abs(centro1y-centro2y)+"Lo sentimos usted solo puede unir puntos adyacentes "+Math.abs(centro1x-centro2x));
+                            
                         }
                           
                       }
@@ -98,6 +118,7 @@ public class Game_Screen extends javax.swing.JFrame {
            }
         });
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,6 +151,7 @@ public class Game_Screen extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(46, 37, 37));
         jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel1MouseDragged(evt);
@@ -291,6 +313,7 @@ public class Game_Screen extends javax.swing.JFrame {
             }
         });
     }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
