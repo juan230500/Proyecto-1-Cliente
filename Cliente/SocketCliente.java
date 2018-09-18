@@ -14,9 +14,6 @@ public class SocketCliente {
 	public void start() throws IOException {
 		try {
 		ClienteSocket = new Socket("localhost", n);
-		salida = new PrintWriter(ClienteSocket.getOutputStream(),true);
-		entrada = new BufferedReader(new InputStreamReader(ClienteSocket.getInputStream()));
-	
 		}
 		catch(UnknownHostException error) {
 			System.err.println("Host desconocido");
@@ -26,13 +23,22 @@ public class SocketCliente {
 			System.err.println("No se puede conectar al host");
 			System.exit(1);
 		}
-		BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
-		String userInput;
-		while((userInput = entrada.readLine())!=null) {
-			salida.println(userInput);
-			System.out.println("Cliente1:"+entrada.readLine());
-		}
+		//BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
 		
+	}
+	
+	public void enviar(Envio data) throws IOException {
+		salida = new PrintWriter(ClienteSocket.getOutputStream(),true);	
+		salida.println(Shipout(data));
+		System.out.println(Shipout(data)); //...
+	}
+	public Respuesta recibir() throws IOException {
+		entrada = new BufferedReader(new InputStreamReader(ClienteSocket.getInputStream()));
+		String inputline = entrada.readLine();
+		return Ansin(inputline);
+		System.out.println(Ansin(inputline)); //para llevar control de lo que se envia
+	
+
 	}
 	public static String Ansout(Respuesta e) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -55,6 +61,7 @@ public class SocketCliente {
 		ObjectMapper mapper = new ObjectMapper();
 		Envio e = mapper.readValue(json, Envio.class);
 		return e;
+		
 	}
 	public void close() throws IOException {
 		salida.close();
