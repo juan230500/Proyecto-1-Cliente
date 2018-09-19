@@ -5,6 +5,16 @@
  */
 package Interfaz;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
+
 /**
  *
  * @author reds
@@ -47,5 +57,21 @@ public class Respuesta {
         this.ypos = ypos;
     }
     
+	public String Ansout(Respuesta e) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		String json = null;
+			json = mapper.writeValueAsString(e);
+		return json;
+	}
     
+    public void Ansin(String json) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY);
+		Respuesta a = mapper.readValue(json, Respuesta.class);
+		this.Dibujo = a.Dibujo;
+		this.espera = a.espera;
+		this.xpos = a.xpos;
+		this.ypos = a.ypos;
+}
 }
