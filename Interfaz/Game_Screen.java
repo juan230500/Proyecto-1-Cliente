@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Interfaz;//El paquete a ulizar 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.GridLayout;
@@ -15,6 +16,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
 import java.awt.Polygon;
+import java.net.*;
+import java.io.DataOutputStream;
+
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 //se importan las librerias necesarias para el manejo de la interfaz grafica
 /**
  *
@@ -77,6 +86,32 @@ public class Game_Screen extends javax.swing.JFrame {
                         jLabel4.setText("");
                         if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100)){
                             jLabel4.setText("");
+                            Envio E1=new Envio();
+                            E1.setXy1(((centro1x-200)/10)+((centro1y-100)/100));
+                            E1.setXy2(((centro2x-200)/10)+((centro2y-100)/100));
+                            try {
+                                System.out.println(E1.Shipout(E1));
+                            } catch (JsonProcessingException ex) {
+                                Logger.getLogger(Game_Screen.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
+                           
+                            Socket S1;
+                            try {
+                                S1 = new Socket("192.168.100.22",9987);
+                               
+                                DataOutputStream O1=new DataOutputStream(S1.getOutputStream());       
+                               
+                                O1.writeUTF(E1.Shipout(E1));
+                               
+                                O1.close();
+                            } catch (UnknownHostException e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            } catch (IOException e1) {
+                                // TODO Auto-generated catch block
+                                e1.printStackTrace();
+                            }
                            Panel1.setColor(Color.GREEN);
                            Pointname1 = "Punto" + point_counter;
                            Pointname2 = "Punto" + point_counter+1;
