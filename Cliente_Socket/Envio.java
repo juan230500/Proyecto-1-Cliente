@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaz;
+package Cliente_Socket;
 
 import java.io.IOException;
 
@@ -24,6 +24,26 @@ public class Envio {
     private int xy2;
     private boolean inicio;
     private String User;
+    private String dibujo;
+    private String ip; 
+
+    public String getDibujo() {
+        return dibujo;
+    }
+
+    public void setDibujo(String dibujo) {
+        this.dibujo = dibujo;
+    }
+    
+    
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 	
     public int getXy1() {
 		return xy1;
@@ -49,25 +69,12 @@ public class Envio {
 	public void setUser(String user) {
 		User = user;
 	}
-	/**
-	 * Metodo que serializa un objeto de la clase Envio en formato JSON como String
-	 * @param e Objeto de la clase Envio a serializar
-	 * @return String en formato JSON
-	 * @throws JsonProcessingException Indicador en caso de error
-	 */
 	 public String Shipout(Envio e) throws JsonProcessingException{
 			ObjectMapper mapper = new ObjectMapper();
 			String json;
 				json = mapper.writeValueAsString(e);
 			return json;
 		}
-	 /**
-	  * Metodo que deserializa un String con formato JSON en un objeto de la clase Envio
-	  * @param json String en formato JSON a deserializar
-	  * @throws JsonParseException Indicador en caso de error
-	  * @throws JsonMappingException Indicador en caso de error
-	  * @throws IOException Indicador en caso de error
-	  */
 	 public void Shipin(String json) throws JsonParseException, JsonMappingException, IOException {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

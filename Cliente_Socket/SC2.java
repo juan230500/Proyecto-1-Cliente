@@ -1,4 +1,4 @@
-package Cliente;
+package Cliente_Socket;
 
 import java.net.*;
 
@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 
-import Interfaz.Envio;
 import Interfaz.Respuesta;
 
 import java.awt.event.*;
