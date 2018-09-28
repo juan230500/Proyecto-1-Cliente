@@ -132,6 +132,10 @@ public class List {
 		    this.size--;
 
 		  }
+          public void berga(){
+          System.out.println("Tome esta thomas");
+          }
 	}
+
 
 

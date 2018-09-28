@@ -22,6 +22,9 @@ import java.awt.Polygon;
  * @author reds
  */
 public class Screen extends javax.swing.JFrame {
+    public Screen(){
+    this.Hacer_array();
+    }
     //int  Posiciones[]=new  int[36];
     int pos=0;
     
@@ -37,14 +40,25 @@ public class Screen extends javax.swing.JFrame {
                 g.setColor(Colorcito);
                 g.drawOval(x, y, 50, 50);
                 g.fillOval(x+20,y+20,10,10);
-                int Posicion[]={x,y};//ESto genera un array con las posiones x,y del cirulo creado
-                Posiciones[pos]=Posicion;//Guarda el array previo en  uno que contenga todos los de la malla 
-                pos=pos+1;   
+                //int Posicion[]={x,y};//ESto genera un array con las posiones x,y del cirulo creado
+                //Posiciones[pos]=Posicion;//Guarda el array previo en  uno que contenga todos los de la malla 
+                //pos=pos+1;   
             }  
         }
 
     
 }
+    public void Hacer_array(){
+          for (int x =200; x <800; x=x+100) {
+            for (int y =100; y <700; y=y+100){
+                int Posicion[]={x,y};//ESto genera un array con las posiones x,y del cirulo creado
+                Posiciones[pos]=Posicion;//Guarda el array previo en  uno que contenga todos los de la malla 
+                pos=pos+1;   
+            }  
+        }
+    
+    
+    }
     public void Rellenar_Figura(Graphics g,int xpoints[],int ypoints[],int red,int green , int blue){
         int puntos=xpoints.length;
         Color Colorcito= new Color(red,green,blue);

@@ -21,17 +21,30 @@ public class Cliente {
     private String ip;
     private int puerto;
     public  Cliente(String ip_adress,int puertico){
+<<<<<<< HEAD
+        ip=ip_adress; 
+        puerto=puertico;
+    }
+    public void enviar(int pos1,int pos2,String name ,int Figura, boolean inicio){
+=======
         ip=ip_adress;
         puerto=puertico;
     }
     public void enviar(int pos1,int pos2,String name  ,String figure){
+>>>>>>> Pantalla_Inicio
         Envio E1=new Envio();
         E1.setXy1(pos1);
         E1.setXy2(pos2);
         E1.setUser(name);
+<<<<<<< HEAD
+        E1.setIp(this.ip);
+        E1.setInicio(inicio);
+       E1.setForma(Figura);
+=======
         E1.setIp(ip);
         E1.setInicio(false);
         E1.setDibujo(figure);
+>>>>>>> Pantalla_Inicio
         
         try {
               System.out.println(E1.Shipout(E1));
