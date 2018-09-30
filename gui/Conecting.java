@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  * @author reds
  */
 public class Conecting extends javax.swing.JFrame {
+    private String Username;
     //private Servidor oyente1=new Servidor(9987);
 public void  jugar( boolean condicion){
     this.setVisible(false);
@@ -26,7 +27,8 @@ public void  jugar( boolean condicion){
     /**
      * Creates new form Conecting
      */
-    public Conecting() {
+    public Conecting(String nombre) {
+        Username=nombre;
         initComponents(); 
 
     }
@@ -117,13 +119,14 @@ public void  jugar( boolean condicion){
   Envio Envio1=oyente.escuchar();
     try {
         System.out.println("dibujo"+Envio1.Shipout());
-        //Game Juego1 = new Game("172.19.49.45","Reds",9987,true);
-        //Juego1.setVisible(true);
-        //this.setVisible(false);
-        //this.dispose();
+        Game Juego1 = new Game("",Username,9987,Envio1.isEscucha());
+        Juego1.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     } catch (JsonProcessingException ex) {
         Logger.getLogger(Conecting.class.getName()).log(Level.SEVERE, null, ex);
     }
+    
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
