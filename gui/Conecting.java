@@ -165,7 +165,7 @@ public void  jugar( boolean condicion){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Conecting().setVisible(true);
+                new Conecting("Reds").setVisible(true);
                 
             }
         });

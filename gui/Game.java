@@ -52,6 +52,13 @@ public class Game extends javax.swing.JFrame {
         Puerto=puerto;//Se define  que 
         Turno=inicio;
         initComponents();
+        if (!Turno){
+            jLabel1.setText("NO es my turno");
+        
+        }
+        else{
+         jLabel1.setText("Es my turno");
+        }
        
         //Graphics Panel1=jPanel1.getGraphics();
          jPanel1.addMouseListener(new MouseAdapter() {
@@ -73,14 +80,26 @@ public class Game extends javax.swing.JFrame {
                         int Xy1=((centro1x-200)/10)+((centro1y-100)/100);
                         int Xy2=((centro2x-200)/10)+((centro2y-100)/100);
                         if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100)){
-                        Screen.dibujar_linea(Panel1, centro1x+25, centro1y+25, centro2x+25, centro2y+25,200,100, 100);
+                        
                         int Puerto=9987;       
                         Cliente User=new Cliente("192.168.100.10",Puerto);
-                        User.enviarps(Xy1, Xy2, Username,true);
-                           System.out.println("Ya voy a empezar a escuchar");
-                           Envio Datos=oyente1.escuchar();
-                           System.out.println("Aqui ya hago lo que me dice el server");
+                        User.enviarps(Xy1, Xy2, Username,true,"");
+                        System.out.println("Ya voy a empezar a escuchar");
+                        Envio Datos=oyente1.escuchar();
+                        System.out.println("Aqui ya hago lo que me dice el server");
                           //System.out.println(Informacion);
+                        if(Datos.isEscucha()){
+                        jLabel1.setText("repita la linea men");
+                        }
+                        if(!Datos.isEscucha()){
+                        Datos=oyente1.escuchar();
+                            try {
+                                System.out.println(Datos.Shipout());
+                            } catch (JsonProcessingException ex) {
+                                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        
                         }
               }
               }
@@ -104,6 +123,7 @@ public class Game extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -117,15 +137,24 @@ public class Game extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(46, 37, 37));
 
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(254, 254, 254));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel1)
+                .addContainerGap(964, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(988, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,6 +226,7 @@ public class Game extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
