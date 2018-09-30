@@ -18,18 +18,12 @@ import java.awt.event.MouseMotionListener;
 import java.awt.Polygon;
 import java.net.*;
 import java.io.DataOutputStream;
-
-
-
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import NET.*;
 import com.fasterxml.jackson.databind.JsonMappingException;
-
 /**
  *
  * @author reds
@@ -51,7 +45,11 @@ public class Game extends javax.swing.JFrame {
     /**
      * Creates new form Game
      */
-    public Game() {
+    public Game(String myip,String Nombre,int puerto,boolean inicio) {
+        ip=myip;
+        Username=Nombre;
+        Puerto=puerto;
+        Turno=inicio;
         initComponents();
         Graphics Panel1=jPanel1.getGraphics();
          jPanel1.addMouseListener(new MouseAdapter() {
@@ -86,14 +84,8 @@ public class Game extends javax.swing.JFrame {
                            System.out.println(Informacion);
                         }
               }
-              
               }
-           
            }
-         
-         
-         
-         
          }
         );
          jPanel1.addMouseMotionListener(new MouseMotionAdapter(){
@@ -185,7 +177,7 @@ public class Game extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Game().setVisible(true);
+                new Game("172.19.49.45","Reds",9987,true).setVisible(true);
             }
         });
     }
