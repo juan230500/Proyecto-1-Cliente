@@ -5,6 +5,9 @@
  */
 package NET;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author reds
@@ -16,6 +19,14 @@ public class Sala_de_pruebas extends javax.swing.JFrame {
      */
     public Sala_de_pruebas() {
         initComponents();
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Sala_de_pruebas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int Puerto=9987;       
+        Cliente User=new Cliente("192.168.100.22",Puerto);
+        User.enviar(10, 10, "Juacho",3,false);
     }
 
     /**
@@ -73,9 +84,7 @@ public class Sala_de_pruebas extends javax.swing.JFrame {
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         // TODO add your handling code here:
-                        int Puerto=9987;       
-                        Cliente User=new Cliente("192.168.100.22",Puerto);
-                        User.enviar(10, 10, "Juacho",3,false);
+                        
     }//GEN-LAST:event_jButton1MousePressed
 
     /**

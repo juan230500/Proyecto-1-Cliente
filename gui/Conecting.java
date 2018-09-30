@@ -16,17 +16,20 @@ import javax.swing.JOptionPane;
  * @author reds
  */
 public class Conecting extends javax.swing.JFrame {
-    private Servidor oyente1=new Servidor(9987);
+public void  jugar( boolean condicion){
+    this.setVisible(false);
 
+}
 
     /**
      * Creates new form Conecting
      */
     public Conecting() {
         initComponents();
+        
        
     }
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,6 +47,12 @@ public class Conecting extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
             }
         });
 
@@ -96,11 +105,19 @@ public class Conecting extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         System.out.println("estoy ecuchando");
-        while(true){
-        System.out.println("hola mae");
-        }
+        
          
     }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        // TODO add your handling code here:
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_formWindowDeactivated
 
     /**
      * @param args the command line arguments
