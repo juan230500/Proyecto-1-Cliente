@@ -6,6 +6,8 @@
 package gui;
 import NET.*;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,7 +18,13 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
     
+    
     //private Servidor oyente1=new Servidor(9987);
+public void close(){
+WindowEvent winClosingEvent=new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
+Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+
+}
 
     /**
      * Creates new form Login
@@ -46,6 +54,11 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(46, 37, 37));
 
@@ -137,15 +150,15 @@ public class Login extends javax.swing.JFrame {
             //Cliente User=new Cliente("192.168.100.22",Puerto);
             //User.enviar(Xy1, Xy2, Username,3,false);
            
-           
            Conecting Game1= new Conecting();
            Game1.setVisible(true);
-           escucha secreto=new escucha();
-           secreto.setVisible(true);
+           close();
+          
+
+      
            
            
-           this.setVisible(false);
-           this.dispose();
+           
            
            
 System.out.println("sigo trabajandoi");
@@ -155,6 +168,11 @@ System.out.println("sigo trabajandoi");
         
         }
     }//GEN-LAST:event_jButton1MousePressed
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        // TODO add your handling code here:
+           
+    }//GEN-LAST:event_formWindowDeactivated
 
     /**
      * @param args the command line arguments
@@ -187,6 +205,7 @@ System.out.println("sigo trabajandoi");
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
+                
             }
         });
     }

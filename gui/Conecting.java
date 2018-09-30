@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  * @author reds
  */
 public class Conecting extends javax.swing.JFrame {
+    //private Servidor oyente1=new Servidor(9987);
 public void  jugar( boolean condicion){
     this.setVisible(false);
 
@@ -25,9 +26,8 @@ public void  jugar( boolean condicion){
      * Creates new form Conecting
      */
     public Conecting() {
-        initComponents();
-        
-       
+        initComponents(); 
+
     }
   
     /**
@@ -58,7 +58,7 @@ public void  jugar( boolean condicion){
 
         jPanel1.setBackground(new java.awt.Color(46, 37, 37));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/Loading.gif"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/local-network.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(254, 254, 254));
@@ -71,12 +71,12 @@ public void  jugar( boolean condicion){
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(213, 213, 213)
-                        .addComponent(jLabel2)))
-                .addContainerGap(169, Short.MAX_VALUE))
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,7 +85,7 @@ public void  jugar( boolean condicion){
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(843, Short.MAX_VALUE))
+                .addContainerGap(731, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -103,20 +103,32 @@ public void  jugar( boolean condicion){
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        System.out.println("estoy ecuchando");
+    
+        
+        
         
          
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
+                try {
+        // TODO add your handling code here:
+        System.out.println("estoy ecuchando");
+        Thread.sleep(10000);
+    } catch (InterruptedException ex) {
+        Logger.getLogger(Conecting.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    Game Juego1 = new Game("172.19.49.45","Reds",9987,true);
+    Juego1.setVisible(true);
+    this.setVisible(false);
+    this.dispose();
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
         // TODO add your handling code here:
-        this.setVisible(false);
-        this.dispose();
+        //this.setVisible(false);
+        //this.dispose();
     }//GEN-LAST:event_formWindowDeactivated
 
     /**
