@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  *
  * @author reds
  */
-public class Game extends javax.swing.JFrame {
+public class Game1 extends javax.swing.JFrame {
 //********************Aqui se establecen los atributos que se van a utlitzar***********************************************************************
     private int xbegin=0;
     private int ybegin=0;
@@ -39,41 +39,47 @@ public class Game extends javax.swing.JFrame {
     private String ip_server="192.168.100.22";
     private String Username;
     private  boolean  Turno;
-    private boolean Linea;
+    private static boolean Flag;
     boolean movimiento=false;
     private Screen Screen =new Screen();
     private Server oyente1=new Server(9998);
-    private long t;
     
 
     /**
      * Creates new form Game
      */
-    public Game(String myip,String Nombre,int puerto,boolean inicio) {
+    public Game1(String myip,String Nombre,int puerto,boolean inicio) {
         ip=myip;//Establezco mi ip para que el servidor  sepa donde responder 
         Username=Nombre;//se establezca un nombre de usuario para que se vea mas elegante la interfaz
         Puerto=puerto;//Se define  que 
         Turno=inicio;
-        t=System.currentTimeMillis();
         Cliente User=new Cliente("192.168.100.10",Puerto);
         initComponents();
         if (!Turno){
             jLabel1.setText("NO es my turno");
         }
         else{
+          Flag=true;
          jLabel1.setText("Es my turno");
         }
         //Graphics Panel1=jPanel1.getGraphics();
          jPanel1.addMouseListener(new MouseAdapter() {
           public void mousePressed(MouseEvent e){//ESte metodo se ejecuta cuando el mouse se presiona en algun lado de la pantalla 
-              if (Turno){xbegin=xfinal= e.getX();//Mediante este procedimiento se  obtiene la poscion del mouse y se guarada en una variable
-              ybegin=yfinal=e.getY();}
+              if (Flag){
+                xbegin=xfinal= e.getX();
+                ybegin=yfinal=e.getY();
+                  }
+                
               else{
-              xbegin=-10;
-              ybegin=-20;
-              }     
+              xbegin=0;
+              ybegin=0;
+              }
+                
+            
+                 
               System.out.println("X = "+ e.getX()+" ; Y = "+e.getY());
            } public void mouseReleased(MouseEvent e){
+               if (Flag){
                System.out.println(Turno);
               xfinal= e.getX();//Mediante este  metodo se recolecta la posicion del mouse cuando se deja de presionar para sabe la posicion final
               yfinal=e.getY();
@@ -88,28 +94,15 @@ public class Game extends javax.swing.JFrame {
               int Xy1=((centro1x-200)/10)+((centro1y-100)/100);
               int Xy2=((centro2x-200)/10)+((centro2y-100)/100);
               if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100)){
-             
-                  if ( Turno && System.currentTimeMillis()-t>100){
-                  jLabel1.setText("Es my turno");
-                  User.enviarps(Xy1, Xy2, Username,true,"");
-              Screen.dibujar_linea(Panel1, centro1x, centro1y, centro2x,centro2y, 200,10, 19);
-              System.out.println("Ya voy a empezar a escuchar");
-              Envio Datos=oyente1.escuchar();
-              System.out.println("Aqui ya hago lo que me dice el server");
-              Turno=Datos.isEscucha();
-              System.out.println("Turno2 "+ Turno);
-              Linea=false;
-              t=System.currentTimeMillis();
-              }
-              else{
-               
-               jLabel1.setText("Espere su turno");
-               
-              }
-              
-
+                  try {
+                      Screen.dibujar_linea(Panel1, centro1x, centro1y, centro2x, centro2y, 100, 100, 100);
+                      Thread.sleep(5000);
+                  } catch (InterruptedException ex) {
+                      Logger.getLogger(Game1.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+                  Flag=true;
                         
-                        }
+                        }}
               }
               }
            }
@@ -190,7 +183,7 @@ public class Game extends javax.swing.JFrame {
          //jLabel1.setText("Es my turno"); 
          //System.out.println();
          Turno=true;
-         Linea=true;
+        // Linea=true;
          System.out.print("ya recibi algo por primera vez");
          
         }        
@@ -218,20 +211,21 @@ public class Game extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Game1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Game1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Game1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Game1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Game("172.19.49.45","Reds",9987,true).setVisible(true);
+                new Game1("172.19.49.45","Reds",9987,true).setVisible(true);
             }
         });
     }
