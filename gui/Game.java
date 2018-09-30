@@ -41,7 +41,7 @@ public class Game extends javax.swing.JFrame {
     private  boolean  Turno;
     boolean movimiento=false;
     private Screen Screen =new Screen();
-    private Server oyente1=new Server(9987);
+    private Server oyente1=new Server(9998);
 
     /**
      * Creates new form Game
@@ -178,6 +178,8 @@ public class Game extends javax.swing.JFrame {
         if (!Turno){
          System.out.println("NO es my turno estoy esperando");
          Envio Datos=oyente1.escuchar();
+         
+         //System.out.println();
          Turno=true;
         }
         
