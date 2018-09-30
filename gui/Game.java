@@ -88,13 +88,21 @@ public class Game extends javax.swing.JFrame {
               int Xy1=((centro1x-200)/10)+((centro1y-100)/100);
               int Xy2=((centro2x-200)/10)+((centro2y-100)/100);
               if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100)){
+             if (!Turno){
              
-                  if (  System.currentTimeMillis()-t>100){
+             
+             }
+                  if ( Turno && System.currentTimeMillis()-t>100){
                   jLabel1.setText("Es my turno");
                   User.enviarps(Xy1, Xy2, Username,true,"");
               //Screen.dibujar_linea(Panel1, centro1x, centro1y, centro2x,centro2y, 200,10, 19);
               System.out.println("Ya voy a empezar a escuchar");
               Envio Datos=oyente1.escuchar();
+              while (!Datos.isEscucha()){
+              dibujo(Datos,"Rojo");
+              Datos=oyente1.escuchar();
+              }
+              dibujo(Datos,"Verde");
               System.out.println("Aqui ya hago lo que me dice el server");
               Turno=Datos.isEscucha();
               System.out.println("Turno2 "+ Turno);
@@ -102,13 +110,8 @@ public class Game extends javax.swing.JFrame {
               t=System.currentTimeMillis();
               }
               else{
-               
                jLabel1.setText("Espere su turno");
-               
-              }
-              
-
-                        
+              }         
                         }
               }
               }
@@ -195,7 +198,27 @@ public class Game extends javax.swing.JFrame {
          
         }        
     }//GEN-LAST:event_formWindowActivated
+private void dibujo(Envio Datos,String Color){
+    int color[];
+   
+    int color1[]={254,0,0};
+    int color2[]={0,254,0};
+     if (Color.equals("Rojo")){
+    color=color1;
+    }
+     else{
+     color=color2;
+     }
+        if (Datos.getDibujo().equals("Linea")){
+             int[] xpos=Datos.getXpos();
+             int[] ypos=Datos.getYpos();
+              Screen.dibujar_linea(Panel1, xpos[0], ypos[0],xpos[1], ypos[1], color[0],color[1],color[2]);
+              }
+        if (Datos.getDibujo().equals("Dibujo")){
+              Screen.Rellenar_Figura(Panel1, Datos.getXpos(), Datos.getYpos(),color[0],color[1],color[2]);
+              }
 
+}
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         
