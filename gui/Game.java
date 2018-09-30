@@ -42,25 +42,24 @@ public class Game extends javax.swing.JFrame {
     boolean movimiento=false;
     private Screen Screen =new Screen();
     private Server oyente1=new Server(9998);
+    
 
     /**
      * Creates new form Game
      */
     public Game(String myip,String Nombre,int puerto,boolean inicio) {
-        
         ip=myip;//Establezco mi ip para que el servidor  sepa donde responder 
         Username=Nombre;//se establezca un nombre de usuario para que se vea mas elegante la interfaz
         Puerto=puerto;//Se define  que 
         Turno=inicio;
+        Cliente User=new Cliente("192.168.100.10",Puerto);
         initComponents();
         if (!Turno){
             jLabel1.setText("NO es my turno");
-        
         }
         else{
          jLabel1.setText("Es my turno");
         }
-       
         //Graphics Panel1=jPanel1.getGraphics();
          jPanel1.addMouseListener(new MouseAdapter() {
           public void mousePressed(MouseEvent e){//ESte metodo se ejecuta cuando el mouse se presiona en algun lado de la pantalla 
@@ -69,9 +68,7 @@ public class Game extends javax.swing.JFrame {
               else{
               xbegin=-10;
               ybegin=-20;
-              }
-              
-
+              }     
               System.out.println("X = "+ e.getX()+" ; Y = "+e.getY());
            } public void mouseReleased(MouseEvent e){
                System.out.println(Turno);
@@ -80,36 +77,28 @@ public class Game extends javax.swing.JFrame {
               Graphics Panel1=jPanel1.getGraphics();
               if(Screen.look_position(xbegin, ybegin)&& Screen.look_position(xfinal, yfinal) && movimiento ){
               if(Screen.give_x(xbegin)!=0&& Screen.give_x(xfinal)!=0 && Screen.give_y(ybegin)!=0 && Screen.give_y(yfinal)!=0){
+
               int centro1x=Screen.give_x(xbegin);
-                        int centro1y=Screen.give_y(ybegin);
-                        int centro2x=Screen.give_x(xfinal);
-                        int centro2y=Screen.give_y(yfinal); 
-                        int Xy1=((centro1x-200)/10)+((centro1y-100)/100);
-                        int Xy2=((centro2x-200)/10)+((centro2y-100)/100);
-                        if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)&&Turno||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100&&Turno)){
-                        int Puerto=9987;       
-                        Cliente User=new Cliente("192.168.100.10",Puerto);
-                        User.enviarps(Xy1, Xy2, Username,true,"");
-                        Screen.dibujar_linea(Panel1, centro1x, centro1y, centro2x,centro2y, 200,10, 19);
-                        System.out.println("Ya voy a empezar a escuchar");
-                        Envio Datos=oyente1.escuchar();
-                        System.out.println("Aqui ya hago lo que me dice el server");
-                          //System.out.println(Informacion);
-                        if(Datos.isEscucha()){
-                        jLabel1.setText("repita la linea men");
-                        }
-                        if(!Datos.isEscucha()){
-                        jLabel1.setText("No es my turno");  
-                        Turno=false;
-                        Datos=oyente1.escuchar();
-                        Turno=true;
-                            try {
-                                
-                                System.out.println(Datos.Shipout());
-                            } catch (JsonProcessingException ex) {
-                                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+              int centro1y=Screen.give_y(ybegin);
+              int centro2x=Screen.give_x(xfinal);
+              int centro2y=Screen.give_y(yfinal); 
+              int Xy1=((centro1x-200)/10)+((centro1y-100)/100);
+              int Xy2=((centro2x-200)/10)+((centro2y-100)/100);
+              if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100)){
+              if (Turno){
+                  jLabel1.setText("Es my turno");
+                  User.enviarps(Xy1, Xy2, Username,true,"");
+              Screen.dibujar_linea(Panel1, centro1x, centro1y, centro2x,centro2y, 200,10, 19);
+              System.out.println("Ya voy a empezar a escuchar");
+              Turno=false;
+              Envio Datos=oyente1.escuchar();
+              System.out.println("Aqui ya hago lo que me dice el server");
+              Turno=Datos.isInicio();
+              }
+              else{
+               jLabel1.setText("Espere su turno");
+              }
+
                         
                         }
               }
@@ -189,13 +178,12 @@ public class Game extends javax.swing.JFrame {
         if (!Turno){
          System.out.println("NO es my turno estoy esperando");
          Envio Datos=oyente1.escuchar();
-         jLabel1.setText("Es my turno"); 
+         //jLabel1.setText("Es my turno"); 
          //System.out.println();
          Turno=true;
-        }
-        
-        
-        
+         System.out.print("ya recibi algo por primera vez");
+         
+        }        
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
