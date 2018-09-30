@@ -20,81 +20,66 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
  * @author reds
  */
 public class Envio {
-    
-    private int xy1;
+	private int xy1;
     private int xy2;
-    private boolean inicio;
+    private boolean Inicio;
     private String User;
-    private int Forma;
-    private String ip;
-    private boolean escucha=true;
-
-    public int getForma() {
-        return Forma;
-    }
-
-    public void setForma(int Forma) {
-        this.Forma = Forma;
-    }
- 
-
-
-    
-    
-   
-
-    public boolean isEscucha() {
-        return escucha;
-    }
-
-    public void setEscucha(boolean escucha) {
-        this.escucha = escucha;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    
+    private String Ip;
+    private int[] xpos;
+    private int[] ypos;
+    private String Dibujo;
+    private boolean escucha;
 	
-    public int getXy1() {
-		return xy1;
-	}
-	public void setXy1(int xy1) {
-		this.xy1 = xy1;
-	}
-	public int getXy2() {
-		return xy2;
-	}
-	public void setXy2(int xy2) {
-		this.xy2 = xy2;
-	}
-	public boolean isInicio() {
-		return inicio;
-	}
-	public void setInicio(boolean inicio) {
-		this.inicio = inicio;
-	}
-	public String getUser() {
-		return User;
-	}
-	public void setUser(String user) {
-		User = user;
-	}
+	//Objeto envio en limpio
+		public Envio() {
+			this.xy1=0;
+	        this.xy2=0;
+	        this.Inicio=false;
+	        this.User=null;
+	        this.Ip=null;
+	        this.xpos = null;
+			this.ypos = null;
+			Dibujo = null;
+			this.escucha = false;
+		}
+		//-----------------Cliente
+	    public Envio(int co1,int co2, boolean inicio, String user, String ip){
+	        this.xy1=co1;
+	        this.xy2=co2;
+	        this.Inicio=inicio;
+	        this.User=user;
+	        this.Ip=ip;
+	        //Valores en null
+	        this.xpos = null;
+			this.ypos = null;
+			this.Dibujo = null;
+			this.escucha = false;
+	    }
+	    //-----------------Servidor
+	    public Envio(int[] xpos, int[] ypos, String dibujo, boolean escucha) {
+			this.xpos = xpos;
+			this.ypos = ypos;
+			this.Dibujo = dibujo;
+			this.escucha = escucha;
+			//Valores en null
+			this.xy1=0;
+	        this.xy2=0;
+	        this.Inicio=false;
+	        this.User=null;
+	        this.Ip=null;
+		}
+
+
 	/**
 	 * Metodo que serializa un objeto de la clase Envio en formato JSON como String
 	 * @param e Objeto de la clase Envio a serializar
 	 * @return String en formato JSON
 	 * @throws JsonProcessingException Indicador en caso de error
 	 */
-	 public String Shipout(Envio e) throws JsonProcessingException{
+	 public String Shipout() throws JsonProcessingException{
 			ObjectMapper mapper = new ObjectMapper();
 			String json;
-				json = mapper.writeValueAsString(e);
+				json = mapper.writeValueAsString(this);
 			return json;
 		}
 	 /**
@@ -104,17 +89,69 @@ public class Envio {
 	  * @throws JsonMappingException Indicador en caso de error
 	  * @throws IOException Indicador en caso de error
 	  */
-	 public void Shipin(String json) throws JsonParseException, JsonMappingException, IOException {
+	 public void Shipin(String json,boolean servidor) throws JsonParseException, JsonMappingException, IOException {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY);
 			Envio e = mapper.readValue(json, Envio.class);
-			this.xy1 = e.getXy1();
-			this.xy2 = e.getXy2();
-			this.inicio = e.inicio;
-			this.User = e.User;
-                        this.ip = e.ip;
-                        this.Forma = e.Forma;
+			if (servidor) {
+				this.xy1=e.getXy1();
+		        this.xy2=e.getXy2();
+		        this.Inicio=e.isInicio();
+		        this.User=e.getUser();
+		        this.Ip=e.getIp();
+			}
+			else {
+				this.xpos = e.getXpos();
+				this.ypos = e.getYpos();
+				Dibujo = e.getDibujo();
+				this.escucha = e.isEscucha();
+			}
 			
 }
+
+
+	public int getXy1() {
+		return xy1;
+	}
+
+
+	public int getXy2() {
+		return xy2;
+	}
+
+
+	public boolean isInicio() {
+		return Inicio;
+	}
+
+
+	public String getUser() {
+		return User;
+	}
+
+
+	public String getIp() {
+		return Ip;
+	}
+
+
+	public int[] getXpos() {
+		return xpos;
+	}
+
+
+	public int[] getYpos() {
+		return ypos;
+	}
+
+
+	public String getDibujo() {
+		return Dibujo;
+	}
+
+
+	public boolean isEscucha() {
+		return escucha;
+	}
 }
