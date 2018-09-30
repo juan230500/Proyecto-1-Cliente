@@ -150,7 +150,7 @@ Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
             //Cliente User=new Cliente("192.168.100.22",Puerto);
             //User.enviar(Xy1, Xy2, Username,3,false);
            Cliente User=new Cliente("192.168.100.10",9987);
-           User.enviarps(0, 0, nombre,true);
+           User.enviarps(0, 0, nombre,true,IP);
            Conecting Game1= new Conecting();
            Game1.setVisible(true);
            this.dispose();

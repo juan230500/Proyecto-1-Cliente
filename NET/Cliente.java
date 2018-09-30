@@ -26,9 +26,9 @@ public class Cliente {
         puerto=puertico;
     }
 
-    public void enviarps(int pos1,int pos2,String name , boolean inicio){
+    public void enviarps(int pos1,int pos2,String name , boolean inicio,String myip){
 
-        Envio E1=new Envio(pos1,pos2,inicio,name,ip);
+        Envio E1=new Envio(pos1,pos2,inicio,name,myip);
         
         try {
               System.out.println(E1.Shipout());

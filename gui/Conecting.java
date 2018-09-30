@@ -5,6 +5,7 @@
  */
 package gui;
 import NET.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -112,17 +113,17 @@ public void  jugar( boolean condicion){
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-                try {
-        // TODO add your handling code here:
-        System.out.println("estoy ecuchando");
-        Thread.sleep(10000);
-    } catch (InterruptedException ex) {
+  Server oyente=new Server(9999);
+  Envio Envio1=oyente.escuchar();
+    try {
+        System.out.println("dibujo"+Envio1.Shipout());
+        //Game Juego1 = new Game("172.19.49.45","Reds",9987,true);
+        //Juego1.setVisible(true);
+        //this.setVisible(false);
+        //this.dispose();
+    } catch (JsonProcessingException ex) {
         Logger.getLogger(Conecting.class.getName()).log(Level.SEVERE, null, ex);
     }
-    Game Juego1 = new Game("172.19.49.45","Reds",9987,true);
-    Juego1.setVisible(true);
-    this.setVisible(false);
-    this.dispose();
     }//GEN-LAST:event_formWindowActivated
 
     private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated

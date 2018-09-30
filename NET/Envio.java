@@ -42,6 +42,7 @@ public class Envio {
 			Dibujo = null;
 			this.escucha = false;
 		}
+		
 		//-----------------Cliente
 	    public Envio(int co1,int co2, boolean inicio, String user, String ip){
 	        this.xy1=co1;
@@ -55,6 +56,7 @@ public class Envio {
 			this.Dibujo = null;
 			this.escucha = false;
 	    }
+	    
 	    //-----------------Servidor
 	    public Envio(int[] xpos, int[] ypos, String dibujo, boolean escucha) {
 			this.xpos = xpos;
@@ -62,7 +64,7 @@ public class Envio {
 			this.Dibujo = dibujo;
 			this.escucha = escucha;
 			//Valores en null
-			this.xy1=0;
+		this.xy1=0;
 	        this.xy2=0;
 	        this.Inicio=false;
 	        this.User=null;
@@ -79,7 +81,7 @@ public class Envio {
 	 public String Shipout() throws JsonProcessingException{
 			ObjectMapper mapper = new ObjectMapper();
 			String json;
-				json = mapper.writeValueAsString(this);
+			json = mapper.writeValueAsString(this);
 			return json;
 		}
 	 /**
@@ -95,18 +97,17 @@ public class Envio {
 			VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY);
 			Envio e = mapper.readValue(json, Envio.class);
 			if (servidor) {
-				this.xy1=e.getXy1();
-		        this.xy2=e.getXy2();
-		        this.Inicio=e.isInicio();
-		        this.User=e.getUser();
-		        this.Ip=e.getIp();
-			}
+			this.xy1=e.getXy1();
+	        this.xy2=e.getXy2();
+	        this.Inicio=e.isInicio();
+	        this.User=e.getUser();
+	        this.Ip=e.getIp();}
 			else {
-				this.xpos = e.getXpos();
-				this.ypos = e.getYpos();
-				Dibujo = e.getDibujo();
-				this.escucha = e.isEscucha();
-			}
+			this.xpos = e.getXpos();
+			this.ypos = e.getYpos();
+			this.Dibujo = e.getDibujo();
+			this.escucha = e.isEscucha();}
+			
 			
 }
 
@@ -153,5 +154,41 @@ public class Envio {
 
 	public boolean isEscucha() {
 		return escucha;
+	}
+
+	public void setXy1(int xy1) {
+		this.xy1 = xy1;
+	}
+
+	public void setXy2(int xy2) {
+		this.xy2 = xy2;
+	}
+
+	public void setInicio(boolean inicio) {
+		Inicio = inicio;
+	}
+
+	public void setUser(String user) {
+		User = user;
+	}
+
+	public void setIp(String ip) {
+		Ip = ip;
+	}
+
+	public void setXpos(int[] xpos) {
+		this.xpos = xpos;
+	}
+
+	public void setYpos(int[] ypos) {
+		this.ypos = ypos;
+	}
+
+	public void setDibujo(String dibujo) {
+		Dibujo = dibujo;
+	}
+
+	public void setEscucha(boolean escucha) {
+		this.escucha = escucha;
 	}
 }

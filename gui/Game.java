@@ -29,7 +29,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
  * @author reds
  */
 public class Game extends javax.swing.JFrame {
-     private int xbegin=0;
+//********************Aqui se establecen los atributos que se van a utlitzar***********************************************************************
+    private int xbegin=0;
     private int ybegin=0;
     private int yfinal=0;
     private int xfinal=0;
@@ -40,18 +41,19 @@ public class Game extends javax.swing.JFrame {
     private  boolean  Turno;
     boolean movimiento=false;
     private Screen Screen =new Screen();
-    private Servidor oyente1=new Servidor(9987);
+    private Server oyente1=new Server(9987);
 
     /**
      * Creates new form Game
      */
     public Game(String myip,String Nombre,int puerto,boolean inicio) {
-        ip=myip;
-        Username=Nombre;
-        Puerto=puerto;
+        ip=myip;//Establezco mi ip para que el servidor  sepa donde responder 
+        Username=Nombre;//se establezca un nombre de usuario para que se vea mas elegante la interfaz
+        Puerto=puerto;//Se define  que 
         Turno=inicio;
         initComponents();
-        Graphics Panel1=jPanel1.getGraphics();
+       
+        //Graphics Panel1=jPanel1.getGraphics();
          jPanel1.addMouseListener(new MouseAdapter() {
           public void mousePressed(MouseEvent e){//ESte metodo se ejecuta cuando el mouse se presiona en algun lado de la pantalla 
               xbegin=xfinal= e.getX();//Mediante este procedimiento se  obtiene la poscion del mouse y se guarada en una variable
@@ -75,13 +77,10 @@ public class Game extends javax.swing.JFrame {
                         int Puerto=9987;       
                         Cliente User=new Cliente("192.168.100.10",Puerto);
                         User.enviarps(Xy1, Xy2, Username,true);
-                           /*System.out.println("Ya cree el servidor ");
-                           Envio Datos_Recibidos1=new Envio();
                            System.out.println("Ya voy a empezar a escuchar");
-                           String Informacion=oyente1.escuchar();
-                           Turno=false;
-                           System.out.println("Ya deje de escuchar ");
-                           System.out.println(Informacion);*/
+                           Envio Datos=oyente1.escuchar();
+                           System.out.println("Aqui ya hago lo que me dice el server");
+                          //System.out.println(Informacion);
                         }
               }
               }
@@ -95,7 +94,6 @@ public class Game extends javax.swing.JFrame {
            }
         });
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,6 +107,9 @@ public class Game extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
@@ -143,9 +144,22 @@ public class Game extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
-        Graphics Panel1=jPanel1.getGraphics();
+         Graphics Panel1=jPanel1.getGraphics();
         Screen.Hacer_puntos(Panel1);
+        if (!Turno){
+         System.out.println("NO es my turno estoy esperando");
+         Envio Datos=oyente1.escuchar();
+         Turno=true;
+        }
+        
+        
+        
     }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
