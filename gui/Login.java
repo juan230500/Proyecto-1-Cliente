@@ -149,10 +149,11 @@ Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
          System.out.println("usted ingresara con el nombre de "+ nombre+" con la ip de "+IP );
             //Cliente User=new Cliente("192.168.100.22",Puerto);
             //User.enviar(Xy1, Xy2, Username,3,false);
-           
+           Cliente User=new Cliente("192.168.100.10",9987);
+           User.enviarps(0, 0, nombre,true);
            Conecting Game1= new Conecting();
            Game1.setVisible(true);
-           close();
+           this.dispose();
           
 
       

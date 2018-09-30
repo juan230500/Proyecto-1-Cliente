@@ -73,15 +73,15 @@ public class Game extends javax.swing.JFrame {
                         if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100)){
                         Screen.dibujar_linea(Panel1, centro1x+25, centro1y+25, centro2x+25, centro2y+25,200,100, 100);
                         int Puerto=9987;       
-                        //Cliente User=new Cliente("192.168.100.22",Puerto);
-                        //User.enviar(Xy1, Xy2, Username,3,false);
-                           System.out.println("Ya cree el servidor ");
+                        Cliente User=new Cliente("192.168.100.10",Puerto);
+                        User.enviarps(Xy1, Xy2, Username,true);
+                           /*System.out.println("Ya cree el servidor ");
                            Envio Datos_Recibidos1=new Envio();
                            System.out.println("Ya voy a empezar a escuchar");
                            String Informacion=oyente1.escuchar();
                            Turno=false;
                            System.out.println("Ya deje de escuchar ");
-                           System.out.println(Informacion);
+                           System.out.println(Informacion);*/
                         }
               }
               }

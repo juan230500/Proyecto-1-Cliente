@@ -26,19 +26,12 @@ public class Cliente {
         puerto=puertico;
     }
 
-    public void enviar(int pos1,int pos2,String name ,int Figura, boolean inicio){
+    public void enviarps(int pos1,int pos2,String name , boolean inicio){
 
-        Envio E1=new Envio();
-        E1.setXy1(pos1);
-        E1.setXy2(pos2);
-        E1.setUser(name);
-        E1.setIp(this.ip);
-        E1.setInicio(inicio);
-       E1.setForma(Figura);
-        E1.setIp(ip);
-        E1.setInicio(false);
+        Envio E1=new Envio(pos1,pos2,inicio,name,ip);
+        
         try {
-              System.out.println(E1.Shipout(E1));
+              System.out.println(E1.Shipout());
         } 
         catch (JsonProcessingException ex) {
         Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,7 +40,7 @@ public class Cliente {
         try {
             S1 = new Socket(ip,puerto);
             DataOutputStream O1=new DataOutputStream(S1.getOutputStream());       
-            O1.writeUTF(E1.Shipout(E1));
+            O1.writeUTF(E1.Shipout());
             O1.close();
         } catch (UnknownHostException e1) {
             // TODO Auto-generated catch block
@@ -57,13 +50,12 @@ public class Cliente {
             e1.printStackTrace();
         }
     }
-    public void enviar(String name){
-        Envio E1=new Envio();
-        E1.setInicio(true);
-        E1.setIp(ip);
-        E1.setUser(name);
-         try {
-              System.out.println(E1.Shipout(E1));
+    public void enviarpc(int [] xpos,int[] ypos,String dibujo , boolean escucha){
+
+        Envio E1=new Envio(xpos,ypos,dibujo,escucha);
+        
+        try {
+              System.out.println(E1.Shipout());
         } 
         catch (JsonProcessingException ex) {
         Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,7 +64,7 @@ public class Cliente {
         try {
             S1 = new Socket(ip,puerto);
             DataOutputStream O1=new DataOutputStream(S1.getOutputStream());       
-            O1.writeUTF(E1.Shipout(E1));
+            O1.writeUTF(E1.Shipout());
             O1.close();
         } catch (UnknownHostException e1) {
             // TODO Auto-generated catch block
@@ -80,9 +72,7 @@ public class Cliente {
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
-        
-        
+        }
     }
-    
-    }
+
 }
