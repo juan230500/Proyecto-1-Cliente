@@ -8,12 +8,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import adt.List;
-
+/**
+* El programa de Server  su funcionalidad es  crear un objeto  server para que el escuche desde 
+* cierto puerto especifico para que cuando  un objetocliente le envia este capte ese mensaje
+* toda la informacion necesaria
+* @author Sahid Rojas Chacon,Juan Pablo Alvarado
+* @version 3.0
+ */
 public class Server implements Runnable {
 	private ServerSocket server;
 	private int Puerto;
 	private  Envio Informacion;
-	
+	/**
+           * Constructor del server 
+           * @param  numero  Este es para estalecer por cual puerto escuchar
+          */
 	 public Server (int numero){
 	        try {
 	        	server=new ServerSocket(numero);
@@ -22,6 +31,11 @@ public class Server implements Runnable {
 	        }
 	        
 	    }
+         /**
+           * Este metodo genera un hilo que espera a que se reciba algo por el server socket
+           * ademas de eso el me devuelve un paquete envio para que yo pueda manerjar la informacion
+           * 
+          */
 	    public Envio escuchar(){
 	            Thread hilo= new Thread(this);
 		    hilo.start();
