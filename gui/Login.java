@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gui;
+import principal.Cliente;
 import NET.*;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import java.awt.Toolkit;

@@ -123,17 +123,17 @@ public class Envio {
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY);
 			Envio e = mapper.readValue(json, Envio.class);
-			if (servidor) {
+			
 			this.xy1=e.getXy1();
 	        this.xy2=e.getXy2();
 	        this.Inicio=e.isInicio();
 	        this.User=e.getUser();
-	        this.Ip=e.getIp();}
-			else {
+	        this.Ip=e.getIp();
+			
 			this.xpos = e.getXpos();
 			this.ypos = e.getYpos();
 			this.Dibujo = e.getDibujo();
-			this.escucha = e.isEscucha();}
+			this.escucha = e.isEscucha();
 			
 			
 }

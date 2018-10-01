@@ -23,6 +23,7 @@ import java.awt.Polygon;
  */
 public class Screen extends javax.swing.JFrame {
     public Screen(){
+        
     this.Hacer_array();
     }
     //int  Posiciones[]=new  int[36];
@@ -30,7 +31,11 @@ public class Screen extends javax.swing.JFrame {
     
     int  Posiciones[][]=new int[36][2];
     int Colores[][]={{255, 87, 51},{ 255, 195, 0},{93, 173, 226}};
-    
+      /**
+           * Este metodo es para generar una matriz de puntos de 6X6 en la superificie esablecida .
+           * @param  g Es la superficie en la cual se dibujara la matriz  
+
+          */
     public  void Hacer_puntos(Graphics g){//ESte metodo genera la matriz de puntos visualmente dibujando puntos en el Panel
         
         for (int x =200; x <800; x=x+100) {
@@ -47,7 +52,9 @@ public class Screen extends javax.swing.JFrame {
         }
 
     
-}
+}    /**
+           * Este metodo se utiliza para generar un array de todas las posciones de los centro de los circulo dibujaods con Hacer Putnos
+          */
     public void Hacer_array(){
           for (int x =200; x <800; x=x+100) {
             for (int y =100; y <700; y=y+100){
@@ -59,12 +66,17 @@ public class Screen extends javax.swing.JFrame {
     
     
     }
+     /**
+           * Este metodo se para generar una matriz de puntos de 6X6 en la superificie esablecida .
+           * @param  xpoints Es la superficie en la cual se dibujara la matriz  
+
+          */
     public void Rellenar_Figura(Graphics g,int xpoints[],int ypoints[],int red,int green , int blue){
         int puntos=xpoints.length;
         Color Colorcito= new Color(red,green,blue);
         g.setColor(Colorcito);
         Polygon p= new Polygon(xpoints,ypoints,puntos);
-        g.drawPolygon(p);
+       g.drawPolygon(p);
         g.fillPolygon(p);
         //return p;
     

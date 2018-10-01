@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gui;
+import principal.Cliente;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.awt.Graphics;
 import java.awt.MouseInfo;
@@ -50,7 +51,8 @@ public class Game extends javax.swing.JFrame {
     private Screen Screen =new Screen();
     private Server oyente1=new Server(9998);
     private long t;
-    private   Cola figuras=new Cola();
+    private   LinkedQueue  figuras=new LinkedQueue ();
+    private int puntos=0;
     
 
     /**
@@ -61,6 +63,9 @@ public class Game extends javax.swing.JFrame {
         Username=Nombre;//se establezca un nombre de usuario para que se vea mas elegante la interfaz
         Puerto=puerto;//Se define  que 
         Turno=inicio;
+        int x[]={0,1,2};
+        int y[]={4,5,6};
+        Polygon dato=new Polygon(x,y,3);
         t=System.currentTimeMillis();
         final Cliente User=new Cliente("192.168.100.10",Puerto);
         initComponents();
@@ -103,9 +108,22 @@ public class Game extends javax.swing.JFrame {
               System.out.println("Ya voy a empezar a escuchar");
               Envio Datos=oyente1.escuchar();
               if (!Datos.isEscucha()){
-                    dibujo(Datos,"Rojo");
-                    Datos=oyente1.escuchar();
+                  puntos+=Datos.getXy1();
+                      try {
+                          System.out.println("este es ekl shipout"+Datos.Shipout());
+                      } catch (JsonProcessingException ex) {
+                          Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+                  String info=Integer.toString(puntos);;
+                  jLabel3.setText(info);
+                  dibujo(Datos,"Rojo");
+                  Datos=oyente1.escuchar();
                 }
+                 puntos+=Datos.getXy1();
+                  System.out.println(Datos.getXy1());
+                  String info=Integer.toString(puntos);;
+                  jLabel3.setText(info);
+                  dibujo(Datos,"Rojo");
               jLabel1.setText("NO es my turno");
               dibujo(Datos,"Verde");
               System.out.println("Aqui ya hago lo que me dice el server");
@@ -141,6 +159,8 @@ public class Game extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -157,6 +177,14 @@ public class Game extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(254, 254, 254));
 
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel2.setText("Puntaje");
+
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(254, 254, 254));
+        jLabel3.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -165,13 +193,25 @@ public class Game extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
                 .addContainerGap(964, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(40, 40, 40)))
+                .addGap(116, 116, 116))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(988, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(887, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -241,16 +281,8 @@ public class Game extends javax.swing.JFrame {
             System.out.println("voiy a dibujar unaFigura");
             int[] xpos=Datos.getXpos();
             int[] ypos=Datos.getYpos();
+            //Screen.Rellenar_Figura(Panel1, xpos, ypos,color[0],color[1],color[2]);
             Screen.Rellenar_Figura(Panel1, xpos, ypos,color[0],color[1],color[2]);
-            /*Polygon d=Screen.Rellenar_Figura(Panel1, xpos, ypos,color[0],color[1],color[2]);
-            figuras.insertar(d);
-             Polygon figura = null;
-            while(figuras.extraer()!=null){
-               
-            figura=(Polygon)figuras.extraer();
-            Panel1.fillPolygon(figura);}*/
-        
-            
               }
 
 }
@@ -296,6 +328,8 @@ public class Game extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

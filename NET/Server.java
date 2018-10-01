@@ -57,6 +57,7 @@ public class Server implements Runnable {
 	            Envio e1=new Envio();
                     System.out.println(mensaje);
 				e1.Shipin(mensaje,false);
+                                System.out.println(e1.Shipout());
 				Informacion=e1;
 				misocket.close();
 				condicion="exit";
