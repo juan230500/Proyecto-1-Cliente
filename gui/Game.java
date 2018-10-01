@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import NET.*;
+import adt.*;
+
 import com.fasterxml.jackson.databind.JsonMappingException;
 /**
 * El programa de Game es uan interfaz que mediante datos que le brinda el
@@ -48,6 +50,7 @@ public class Game extends javax.swing.JFrame {
     private Screen Screen =new Screen();
     private Server oyente1=new Server(9998);
     private long t;
+    private   Cola figuras=new Cola();
     
 
     /**
@@ -234,10 +237,20 @@ public class Game extends javax.swing.JFrame {
              Screen.dibujar_linea(Panel1, ((xpos[0]+2)*100)+25,((ypos[0]+1)*100)+25, ((xpos[1]+2)*100)+25, ((ypos[1]+1)*100)+25, color[0],color[1],color[2]);
               }
         if (Datos.getDibujo().equals("Dibujo")){
+            //figuras.insertar();
             System.out.println("voiy a dibujar unaFigura");
             int[] xpos=Datos.getXpos();
             int[] ypos=Datos.getYpos();
             Screen.Rellenar_Figura(Panel1, xpos, ypos,color[0],color[1],color[2]);
+            /*Polygon d=Screen.Rellenar_Figura(Panel1, xpos, ypos,color[0],color[1],color[2]);
+            figuras.insertar(d);
+             Polygon figura = null;
+            while(figuras.extraer()!=null){
+               
+            figura=(Polygon)figuras.extraer();
+            Panel1.fillPolygon(figura);}*/
+        
+            
               }
 
 }

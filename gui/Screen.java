@@ -66,6 +66,7 @@ public class Screen extends javax.swing.JFrame {
         Polygon p= new Polygon(xpoints,ypoints,puntos);
         g.drawPolygon(p);
         g.fillPolygon(p);
+        //return p;
     
     }
     public void dibujar_linea(Graphics g,int x1,int y1,int x2,int y2,int red,int green , int blue){
