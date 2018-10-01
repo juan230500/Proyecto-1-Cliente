@@ -17,7 +17,11 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 
 /**
  *
- * @author reds
+*  El programa de Envio  su funcionalidad es  crear un objeto con los datos necesarios
+* para que el Servidor y el Cliente se comuniquen de manera efectiva y mediante este se tranfieran
+* toda la informacion necesaria
+* @author Sahid Rojas Chacon,Juan Pablo Alvarado
+* @version 3.0
  */
 public class Envio {
 	private int xy1;
@@ -31,6 +35,11 @@ public class Envio {
     private boolean escucha;
 	
 	//Objeto envio en limpio
+    /**
+          * Constructor de  un paquete envio limpio.
+           * 
+           * 
+           */
 		public Envio() {
 			this.xy1=0;
 	        this.xy2=0;
@@ -44,6 +53,17 @@ public class Envio {
 		}
 		
 		//-----------------Cliente
+                /**
+           * Constructor que usa cuando se envia algo desde el cliente  al servidor.
+           * @param  co1  Este paraetro espera las cordenas Xy1.
+           * @param co2 Este parametro espera las cordenadas Xy2.
+           * @param inicio Este parametro es un true si se lo envia por primera vez o false si es una segunda .
+           * @param user Este parametro brinda el Nombre del usuario.
+           * @param ip Mediante este parametro se sabe desde que ip se esta enviando el Envio 
+           *  
+           * 
+          */
+                
 	    public Envio(int co1,int co2, boolean inicio, String user, String ip){
 	        this.xy1=co1;
 	        this.xy2=co2;
@@ -58,6 +78,13 @@ public class Envio {
 	    }
 	    
 	    //-----------------Servidor
+           /**
+           * Constructor que usa cuando se envia algo desde el servidor al cliente  .
+           * @param  xpos  Este parametro establece el array de las posiciones de x para dibujar .
+           * @param  ypos  Este parametro establece el array de las posiciones de y para dibujar .
+           * @param dibujo Este parametro estable que dibujo queremos que  el cliente muestre.
+           * @param escucha Mediante este parametro podemos establecer si queremos que el cliente siga escuchando o pare.
+           */
 	    public Envio(int[] xpos, int[] ypos, String dibujo, boolean escucha) {
 			this.xpos = xpos;
 			this.ypos = ypos;

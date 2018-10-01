@@ -25,9 +25,13 @@ import java.util.logging.Logger;
 import NET.*;
 import com.fasterxml.jackson.databind.JsonMappingException;
 /**
- *
- * @author reds
- */
+* El programa de Game es uan interfaz que mediante datos que le brinda el
+* servidor el muestra contenido en la pantalla 
+* 
+* @author Sahid Rojas Chacon,Juan Pablo Alvarado
+* @version 3.0
+* 
+*/
 public class Game extends javax.swing.JFrame {
 //********************Aqui se establecen los atributos que se van a utlitzar***********************************************************************
     private int xbegin=0;
@@ -88,10 +92,7 @@ public class Game extends javax.swing.JFrame {
               int Xy1=((centro1x-200)/10)+((centro1y-100)/100);
               int Xy2=((centro2x-200)/10)+((centro2y-100)/100);
               if((Math.abs(centro1x-centro2x)==100 && Math.abs(centro1y-centro2y)<=100)||(Math.abs(centro1y-centro2y)==100 &&  Math.abs(centro1x-centro2x)<=100)){
-             if (!Turno){
-             
-             
-             }
+                  
                   if ( Turno && System.currentTimeMillis()-t>100){
                   jLabel1.setText("Es my turno");
                   User.enviarps(Xy1, Xy2, Username,true,"");
@@ -102,6 +103,7 @@ public class Game extends javax.swing.JFrame {
                     dibujo(Datos,"Rojo");
                     Datos=oyente1.escuchar();
                 }
+              jLabel1.setText("NO es my turno");
               dibujo(Datos,"Verde");
               System.out.println("Aqui ya hago lo que me dice el server");
               Turno=Datos.isEscucha();
@@ -110,7 +112,7 @@ public class Game extends javax.swing.JFrame {
               t=System.currentTimeMillis();
               }
               else{
-               jLabel1.setText("Espere su turno");
+               jLabel1.setText("es my turno");
               }         
                         }
               }
@@ -182,7 +184,11 @@ public class Game extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     *Este metodo es un evento que se ejecuta cuando la pantalla se activa
+     *por primera vez
+     * 
+     */
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // TODO add your handling code here:
          Graphics Panel1=jPanel1.getGraphics();
@@ -190,7 +196,8 @@ public class Game extends javax.swing.JFrame {
         if (!Turno){
          System.out.println("NO es my turno estoy esperando");
          Envio Datos=oyente1.escuchar();
-         //jLabel1.setText("Es my turno"); 
+         dibujo(Datos,"Verde");
+        
          //System.out.println();
          Turno=true;
          Linea=true;
@@ -198,7 +205,12 @@ public class Game extends javax.swing.JFrame {
          
         }        
     }//GEN-LAST:event_formWindowActivated
-private void dibujo(Envio Datos,String Color){
+/**
+     *Este metodo recibe un paquete de envio y analiza el valor del atributo
+     *dibujo para ver si tiene que dibujar algo y su tiene que dibujar algi si es una linea o una figura 
+     * 
+     */
+    private void dibujo(Envio Datos,String Color){
     int color[];
     Graphics Panel1=jPanel1.getGraphics();
     int color1[]={254,0,0};
@@ -218,13 +230,14 @@ private void dibujo(Envio Datos,String Color){
         if (Datos.getDibujo().equals("Linea")){
              int[] xpos=Datos.getXpos();
              int[] ypos=Datos.getYpos();
-             
              System.out.println("voiy a dibujar unalinea");
-             
-              Screen.dibujar_linea(Panel1, ((xpos[0]+2)*100)+25,((ypos[0]+1)*100)+25, ((xpos[1]+2)*100)+25, ((ypos[1]+1)*100)+25, color[0],color[1],color[2]);
+             Screen.dibujar_linea(Panel1, ((xpos[0]+2)*100)+25,((ypos[0]+1)*100)+25, ((xpos[1]+2)*100)+25, ((ypos[1]+1)*100)+25, color[0],color[1],color[2]);
               }
         if (Datos.getDibujo().equals("Dibujo")){
-              Screen.Rellenar_Figura(Panel1, Datos.getXpos(), Datos.getYpos(),color[0],color[1],color[2]);
+            System.out.println("voiy a dibujar unaFigura");
+            int[] xpos=Datos.getXpos();
+            int[] ypos=Datos.getYpos();
+            Screen.Rellenar_Figura(Panel1, xpos, ypos,color[0],color[1],color[2]);
               }
 
 }
