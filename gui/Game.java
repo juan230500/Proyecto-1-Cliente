@@ -62,7 +62,7 @@ public class Game extends javax.swing.JFrame {
         Puerto=puerto;//Se define  que 
         Turno=inicio;
         t=System.currentTimeMillis();
-        Cliente User=new Cliente("192.168.100.10",Puerto);
+        final Cliente User=new Cliente("192.168.100.10",Puerto);
         initComponents();
         if (!Turno){
             jLabel1.setText("NO es my turno");

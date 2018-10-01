@@ -13,13 +13,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
- **
- * @author reds
+ *
+* Esta clase genera una interfaz grafica para que el usuario pueda ingresar sus datos iniciales para 
+* empezar a la cola o a jugar 
+* @author Sahid Rojas Chacon,Juan Pablo Alvarado,Tomas malavassi
+* @version 3.0
  */
 public class Login extends javax.swing.JFrame {
     
     
     //private Servidor oyente1=new Servidor(9987);
+         /**
+           * Este metodo es para cerrar la ventana por completo.
+          */
 public void close(){
 WindowEvent winClosingEvent=new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
 Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
@@ -139,7 +145,9 @@ Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+     /**
+           *Este metodo se ejecuta cuando sucede el evento del mouse preciona el boton de ingresar
+          */
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         // TODO add your handling code here:
         String nombre=jTextField1.getText();
